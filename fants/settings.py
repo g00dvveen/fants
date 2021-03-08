@@ -84,7 +84,7 @@ DATABASES = {
         'NAME': 'fants',
         'USER': 'python_user',
         'PASSWORD': 'Password.1',
-        'HOST': '192.168.20.11',
+        'HOST': '192.168.1.212',
         'PORT': '5432',
     }
 }
