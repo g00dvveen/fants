@@ -35,7 +35,7 @@ def get_user(user_id):
         if row is not None:
             user = User(id=row[0], name=row[1], sex=row[2], partner_name=row[3], level=row[4], current_task=row[5])
         else:
-            user = User(id='0', name='', sex='', partner_name='')
+            user = User(id='0', name='', sex='', partner_name='', level='', current_task=0)
         cursor.close()
         db.disconnect(db_conn)
     else:
