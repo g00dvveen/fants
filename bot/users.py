@@ -51,6 +51,7 @@ class User:
         self.partner_name = partner_name
         self.level = level if level is not None else None
         self.current_task = int(current_task) if current_task is not None else 0
+        self.current_level = ''
 
     def get_id(self):
         return self.id

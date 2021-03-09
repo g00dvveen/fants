@@ -9,9 +9,9 @@ import handlers
 
 
 def main():
-    bot = Updater(env.token, 'https://telegg.ru/orig/bot')
+    bot = Updater(env.token)
     bot.dispatcher.add_handler(CommandHandler('start', handlers.start))
-    bot.dispatcher.add_handler(MessageHandler(Filters.regex('Игра начинается'), handlers.start))
+    # bot.dispatcher.add_handler(MessageHandler(Filters.regex('Начать игру'), handlers.start_game))
     bot.dispatcher.add_handler(ConversationHandler(entry_points=[MessageHandler(Filters.regex('Поехали'), handlers.registration)],
                                                    states={
                                                        'user_name': [MessageHandler(Filters.text, handlers.get_user_name)],
@@ -20,6 +20,15 @@ def main():
                                                            MessageHandler(Filters.text, handlers.get_partner_name)],
                                                    },
                                                    fallbacks=[]))
+    bot.dispatcher.add_handler(
+        ConversationHandler(entry_points=[MessageHandler(Filters.regex('Начать игру'), handlers.start_game)],
+                            states={
+                                'show_task': [MessageHandler(Filters.text, handlers.show_task)],
+                                'next_task': [MessageHandler(Filters.regex('Следующее задание'), handlers.next_task)],
+                                'partner_name': [
+                                    MessageHandler(Filters.text, handlers.get_partner_name)],
+                            },
+                            fallbacks=[]))
     bot.dispatcher.add_handler(MessageHandler(Filters.text, handlers.parrot))
     bot.start_polling()
     bot.idle()
